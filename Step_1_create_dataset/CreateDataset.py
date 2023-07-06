@@ -85,18 +85,17 @@ class CreateDataset:
         return data_table
 
     # Add numerical data, we assume timestamps in the form of nanoseconds from the epoch
-    def add_data(self, file, value_cols, label_cols, aggregation='avg'):
+    def add_data(self, file, value_cols, aggregation='avg'):
         dataset = pd.read_csv(file, skipinitialspace=True)
 
-        dataset['TimeStamp'] = pd.to_datetime(dataset['TimeStamp'])
-        dataset = self.add_left_right(dataset) # add features for left and right motor imagery labels
+        dataset['TimeStamp'] = pd.to_datetime(dataset['TimeStamp'])# add features for left and right motor imagery labels
         dataset.dropna(thresh=dataset.shape[1]-10,axis=0, inplace=True) #delete the rows of logs of markers (rows with > col-10 nans)
 
         # now we initialize the sampled dataset with our granularity
-        all_columns = value_cols + label_cols
+        all_columns = value_cols
 
         data_table = self.create_dataset(min(dataset['TimeStamp']), max(dataset['TimeStamp']), all_columns) #this creates a df named data_table 
 
         data_table = self.num_sampling(dataset, data_table, value_cols) #add numerical data
-        data_table = self.cat_sampling(dataset, data_table, label_cols) # add label data
+        # data_table = self.cat_sampling(dataset, data_table, label_cols) # add label data
         return data_table

@@ -275,9 +275,9 @@ class ClassificationAlgorithms:
 
         if gridsearch:
             tuned_parameters = [{'min_samples_leaf': [2, 10, 50, 100, 200],
-                                 'n_estimators':[10, 50, 100],
-                                 'criterion':['gini', 'entropy']}]
-            rf = GridSearchCV(RandomForestClassifier(), tuned_parameters, cv=5, scoring='accuracy')
+                                    'n_estimators':[10, 50, 100],
+                                    'criterion':['gini', 'entropy']}]
+            rf = GridSearchCV(RandomForestClassifier(), tuned_parameters, cv=5, scoring='accuracy', error_score= 'raise')
         else:
             rf = RandomForestClassifier(n_estimators=n_estimators, min_samples_leaf=min_samples_leaf, criterion=criterion)
 

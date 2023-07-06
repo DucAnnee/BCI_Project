@@ -8,8 +8,8 @@ import pandas as pd
 # assumed binary columns for each class, we will for instance introduce approaches to create
 # a single categorical attribute.
 class PrepareDatasetForLearning:
-    default_label = 'undefined'
-    class_col = 'class'
+    default_label = 0.0
+    class_col = 'check'
     person_col = 'person'
 
     # This function creates a single class column based on a set of binary class columns.
@@ -24,8 +24,10 @@ class PrepareDatasetForLearning:
 
         # Determine how many class values are label as 'true' in our class columns.
         sum_values = dataset[labels].sum(axis=1)
+        print(sum_values)
         # Create a new 'class' column and set the value to the default class.
         dataset['class'] = self.default_label
+        dataset['check'].info
         for i in range(0, len(dataset.index)):
             # If we have exactly one true class column, we can assign that value,
             # otherwise we keep the default class ('none').
@@ -46,7 +48,6 @@ class PrepareDatasetForLearning:
 
     def split_single_dataset_classification(self, dataset, class_labels, matching, split_fracs, filter=True, temporal=False, random_state=0):
         # Create a single class column if we have the 'like' option.
-  
         if matching == 'like':
             dataset = self.assign_label(dataset, class_labels)
             class_labels = self.class_col
@@ -89,9 +90,9 @@ class PrepareDatasetForLearning:
         else:
             # Check if the index is unique. If not, create a new index.
             if len(set(source_set.index) & set(addition.index)) > 0:
-                return source_set.append(addition).reset_index(drop=True)
+                return source_set._append(addition).reset_index(drop=True)
             else:
-                return source_set.append(addition)
+                return source_set._append(addition)
 
     def split_multiple_datasets_classification(self, datasets, class_labels, matching, split_fracs, filter=False, temporal=False, unknown_users=False, random_state=0):
         training_set_X = None

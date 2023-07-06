@@ -10,8 +10,8 @@ from pathlib import Path
 import argparse
 
 # Set up file names and locations.
-FOLDER_PATH = Path('./intermediate_datafiles/motor_imagery/step1_result')
-RESULT_PATH = Path('./intermediate_datafiles/motor_imagery/step2_result')
+FOLDER_PATH = Path('./intermediate_datafiles/nondrunk/step1_result')
+RESULT_PATH = Path('./intermediate_datafiles/nondrunk/step2_result')
 
 def print_flags():
     """
@@ -121,9 +121,9 @@ def main():
                 # dataset[col] = dataset[col + '_lowpass']
                 # del dataset[col + '_lowpass']
                 
-            DataViz.plot_dataset(dataset, ['Gamma_','Beta_', 'Alpha_', 'Theta_', 'Delta_', 'label_'],
-                    ['like', 'like', 'like', 'like', 'like', 'like'],
-                    ['line', 'line', 'line', 'line', 'line', 'line'], instance.name.split('_')[1])
+            # DataViz.plot_dataset(dataset, ['Gamma_','Beta_', 'Alpha_', 'Theta_', 'Delta_', 'label_'],
+            #         ['like', 'like', 'like', 'like', 'like', 'like'],
+            #         ['line', 'line', 'line', 'line', 'line', 'line'], instance.name.split('_')[1])
             # Step 4: save the file
             #print(dataset.head())
             dataset.to_csv(Path(str(RESULT_PATH) + '/' + instance.name))

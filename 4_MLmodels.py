@@ -1,6 +1,6 @@
-import os
 import pandas as pd
 from pathlib import Path
+import os
 from Step_4_MLmodels.PrepareDatasetForLearning import PrepareDatasetForLearning
 from Step_4_MLmodels.LearningAlgorithms import ClassificationAlgorithms
 from Step_4_MLmodels.Evaluation import ClassificationEvaluation
@@ -9,8 +9,8 @@ from util import util
 from util.VisualizeDataset import VisualizeDataset
 
 # Set up file names and locations.
-FOLDER_PATH = Path('./intermediate_datafiles/motor_imagery/step3_result')
-RESULT_PATH = Path('./intermediate_datafiles/motor_imagery/step4_result')
+FOLDER_PATH = Path('C:\\Users\\DUC_AN\\Documents\\GitHub\\EEG-ICSSE\\intermediate_datafiles\\motor_imagery\\step3_result\\all')
+RESULT_PATH = Path('C:\\Users\\DUC_AN\\Documents\\GitHub\\EEG-ICSSE\\intermediate_datafiles\\motor_imagery\\step4_result\\all')
 
 
 def main():
@@ -44,7 +44,7 @@ def main():
     '''
     # we set filter is false so also the data besides left and right are taken with us
     train_X, val_X, test_X, train_y, val_y, test_y = prepare.split_multiple_datasets_classification(
-        all_datasets, ['label_left', 'label_right'], 'like', [0.2, 0.25],filter=False, temporal=False)
+        all_datasets, ['0', '1'], 'like', [0.2, 0.25],filter=False, temporal=False)
     print('Training set length is: ', len(train_X.index))
     print('Validation set length is: ', len(val_X.index))
     print('Test set length is: ', len(test_X.index))   
@@ -199,7 +199,7 @@ def main():
     #print(test_y)
     #print(train_X)
     class_train_y, class_test_y, class_train_prob_y, class_test_prob_y = learner.random_forest(
-                train_X, train_y, test_X, gridsearch=True, print_model_details=True, save_model=True
+                train_X, train_y, test_X, gridsearch=True, print_model_details=True, save_model=True,
             )
     performance_training_rf_final = eval.f1(train_y, class_train_y)
     performance_test_rf_final = eval.f1(test_y, class_test_y)

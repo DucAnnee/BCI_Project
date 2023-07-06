@@ -7,8 +7,8 @@ import os
 import sys
 
 # directory paths for the current experiment (change it if needed)
-FOLDER_PATH = Path('./datasets/motor_imagery/')
-RESULT_PATH = Path('./intermediate_datafiles/motor_imagery/step1_result/')
+FOLDER_PATH = Path('./datasets/data/')
+RESULT_PATH = Path('./intermediate_datafiles/motor_imagery/data/')
 RESULT_PATH.mkdir(exist_ok=True, parents=True)
 GRANULARITY = 100 #milisecond per instance; we settle at 100 ms.
 
@@ -25,7 +25,7 @@ for instance in os.scandir(FOLDER_PATH): # go through all instances of experimen
     'Theta_TP9','Theta_AF7','Theta_AF8','Theta_TP10',
     'Alpha_TP9','Alpha_AF7','Alpha_AF8','Alpha_TP10',
     'Beta_TP9','Beta_AF7','Beta_AF8','Beta_TP10',
-    'Gamma_TP9','Gamma_AF7','Gamma_AF8','Gamma_TP10'], ['label_left', 'label_right'], 'avg')
+    'Gamma_TP9','Gamma_AF7','Gamma_AF8','Gamma_TP10'], 'avg')
 
     # Plot the data
     DataViz = VisualizeDataset(__file__)
@@ -35,12 +35,16 @@ for instance in os.scandir(FOLDER_PATH): # go through all instances of experimen
     #'Delta_AF8','Theta_AF8','Alpha_AF8','Beta_AF8','Gamma_AF8'], instance.name.split('--')[0])
 
     # 2. Plot brainwaves and labels
-    DataViz.plot_dataset(dataset, ['Gamma_','Beta_', 'Alpha_', 'Theta_', 'Delta_', 'label_'],
-                                    ['like', 'like', 'like', 'like', 'like', 'like'],
-                                    ['line', 'line', 'line', 'line', 'line', 'line'], instance.name.split('_')[1])
+    # DataViz.plot_dataset(dataset, ['Gamma_','Beta_', 'Alpha_', 'Theta_', 'Delta_', 'label_'],
+    #                                 ['like', 'like', 'like', 'like', 'like', 'like'],
+    #                                 ['line', 'line', 'line', 'line', 'line', 'line'], instance.name.split('_')[1])
     
     # 3. And we print a summary of the dataset.
     #util.print_statistics(dataset)
 
-    # Store the dataset we generated.
-    dataset.to_csv(Path(str(RESULT_PATH) + '/' + instance.name))
+    # # Store the dataset we generated.
+    # if instance.name == "nondrunk":
+    #     dataset['label'] = 0
+    # else:
+    #     dataset['label'] = 1
+    # dataset.to_csv(Path(str(RESULT_PATH) + '/' + instance.name))

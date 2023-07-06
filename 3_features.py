@@ -14,8 +14,9 @@ from Step_3_feature_engineering.FrequencyAbstraction import FourierTransformatio
 from util.VisualizeDataset import VisualizeDataset
 
 # Set up file names and locations.
-FOLDER_PATH = Path('./intermediate_datafiles/motor_imagery/step2_result')
-RESULT_PATH = Path('./intermediate_datafiles/motor_imagery/step3_result')
+# FOLDER_PATH = Path('./intermediate_datafiles/motor_imagery/step2_result')
+FOLDER_PATH = Path('C:\\Users\\DUC_AN\\Documents\\GitHub\\EEG-ICSSE\\intermediate_datafiles\\motor_imagery\\step2_result\\non_drunk')
+RESULT_PATH = Path('C:\\Users\\DUC_AN\\Documents\\GitHub\\EEG-ICSSE\\intermediate_datafiles\\motor_imagery\\step3_result\\non_drunk')
 
 def print_flags():
     """
@@ -98,9 +99,9 @@ def main():
         for instance in os.scandir(FOLDER_PATH): # go through all instances of experiments  
             instance_path = instance.path
             print(f'Going through pipeline for file {instance_path}.')
-            dataset = pd.read_csv(instance_path, index_col=0)
-            dataset.index = pd.to_datetime(dataset.index)
-            selected_cols = [c for c in dataset.columns if not 'label' in c]
+            dataset = pd.read_csv(instance_path, index_col=0, encoding="ISO-8859-1")
+            dataset.index = pd.to_datetime(dataset.index, format = '%M:%S.%f')
+            selected_cols = [c for c in dataset.columns if not 'check' in c]
 
             #PCA with n_pcs of 4 as found in experiment above
             n_pcs = 4
@@ -137,9 +138,9 @@ def main():
             #apparently the first two rows are NaNs so delete those.
             dataset = dataset.iloc[2:]
 
-            DataViz.plot_dataset(dataset, ['Delta_TP9_temp_std_ws_20', 'Theta_AF7_temp_mean_ws_30', 'Alpha_AF8_max_freq_ws_10', 'Beta_TP10_freq_weighted_ws_10', 'Gamma_AF7_pse_ws_10', 'pca_1', 'FastICA_12', 'label_'],
-                ['like', 'like', 'like', 'like', 'like', 'like', 'like', 'like'], 
-                ['line', 'line', 'line', 'line', 'line', 'line', 'line', 'points'], algo='final_step3')
+            # DataViz.plot_dataset(dataset, ['Delta_TP9_temp_std_ws_20', 'Theta_AF7_temp_mean_ws_30', 'Alpha_AF8_max_freq_ws_10', 'Beta_TP10_freq_weighted_ws_10', 'Gamma_AF7_pse_ws_10', 'pca_1', 'FastICA_12', 'label_'],
+                # ['like', 'like', 'like', 'like', 'like', 'like', 'like', 'like'], 
+                # ['line', 'line', 'line', 'line', 'line', 'line', 'line', 'points'], algo='final_step3')
 
             # save data
             dataset.to_csv(Path(str(RESULT_PATH) + '/' + instance.name))
