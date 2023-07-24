@@ -9,8 +9,8 @@ from util import util
 from util.VisualizeDataset import VisualizeDataset
 
 # Set up file names and locations.
-FOLDER_PATH = Path('C:\\Users\\DUC_AN\\Documents\\GitHub\\EEG-ICSSE\\intermediate_datafiles\\motor_imagery\\step3_result\\all')
-RESULT_PATH = Path('C:\\Users\\DUC_AN\\Documents\\GitHub\\EEG-ICSSE\\intermediate_datafiles\\motor_imagery\\step4_result\\all')
+FOLDER_PATH = Path('C:\\Users\\DUC_AN\\Documents\\GitHub\\BCI_Project\\motor_imagery\\step3_result\\all')
+RESULT_PATH = Path('C:\\Users\\DUC_AN\\Documents\\GitHub\\BCI_Project\\motor_imagery\\step4_result\\all')
 
 
 def main():
